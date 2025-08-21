@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>5-Day Superset Strength Workout Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tab-active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .exercise-card {
+            transition: all 0.3s ease;
+        }
+        .exercise-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .superset-badge {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .weight-input {
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            appearance: none;
+            font-size: 16px;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+        }
+        .weight-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .weight-input::-webkit-outer-spin-button,
+        .weight-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        @media (max-width: 428px) {
+            .tab-button {
+                font-size: 12px;
+                padding: 12px 8px;
+            }
+            .exercise-card {
+                margin-bottom: 16px;
+            }
+            .weight-input {
+                font-size: 16px;
+                min-height: 44px;
+            }
+        }
+        @media (min-width: 390px) and (max-width: 428px) and (min-height: 844px) and (max-height: 926px) {
+            body {
+                font-size: 16px;
+            }
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto px-4 py-6 max-w-6xl">
+        <header class="text-center mb-6">
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4">
+                5-Day Superset Strength Workout Plan
+            </h1>
+            <p class="text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+                A comprehensive strength-building program designed with diastasis recti safety in mind, 
+                featuring compound exercises and lower back focus without leg press or lying leg curl machines.
+            </p>
+        </header>
+
+        <div class="mb-6">
+            <div class="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-4">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">How to Use This Workout Plan</h2>
+                <p class="text-gray-600 mb-4 text-sm md:text-base">
+                    Navigate between workout days using the tabs below. Each day contains three supersets (A, B, C) 
+                    with two exercises each. Click on exercises to view detailed instructions and safety notes. 
+                    Use the weight input fields to track the weights you used for each exercise.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div class="bg-blue-50 p-3 md:p-4 rounded-lg">
+                        <h3 class="font-semibold text-blue-800 mb-2">Workout Structure</h3>
+                        <ul class="text-blue-700 space-y-1 text-xs md:text-sm">
+                            <li>• 3-4 sets per superset</li>
+                            <li>• 8-12 reps per exercise</li>
+                            <li>• 0-15 seconds rest between exercises</li>
+                            <li>• 60-90 seconds rest between supersets</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-3 md:p-4 rounded-lg">
+                        <h3 class="font-semibold text-green-800 mb-2">Safety First</h3>
+                        <ul class="text-green-700 space-y-1 text-xs md:text-sm">
+                            <li>• Monitor for abdominal doming</li>
+                            <li>• Engage TVA before each exercise</li>
+                            <li>• Focus on controlled breathing</li>
+                            <li>• Progress gradually with proper form</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-4 md:p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg md:text-xl font-bold text-gray-800">Weight Tracking</h2>
+                    <button onclick="clearAllWeights()" class="text-sm bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition-colors touch-manipulation">
+                        Clear All
+                    </button>
+                </div>
+                <p class="text-sm text-gray-600 mb-4">
+                    Your weight entries are automatically saved in your browser and will persist between sessions.
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="flex flex-wrap border-b">
+                <button onclick="showDay(1)" id="tab-day1" class="tab-button flex-1 min-w-0 px-2 md:px-4 py-3 text-xs md:text-sm font-medium text-center border-r border-gray-200 hover:bg-gray-50 transition-colors tab-active touch-manipulation">
+                    Day 1: Full Body & Posterior Chain
+                </button>
+                <button onclick="showDay(2)" id="tab-day2" class="tab-button flex-1 min-w-0 px-2 md:px-4 py-3 text-xs md:text-sm font-medium text-center border-r border-gray-200 hover:bg-gray-50 transition-colors touch-manipulation">
+                    Day 2: Leg & Core Focus
+                </button>
+                <button onclick="showDay(3)" id="tab-day3" class="tab-button flex-1 min-w-0 px-2 md:px-4 py-3 text-xs md:text-sm font-medium text-center border-r border-gray-200 hover:bg-gray-50 transition-colors touch-manipulation">
+                    Day 3: Upper Body Push & Pull
+                </button>
+                <button onclick="showDay(4)" id="tab-day4" class="tab-button flex-1 min-w-0 px-2 md:px-4 py-3 text-xs md:text-sm font-medium text-center border-r border-gray-200 hover:bg-gray-50 transition-colors touch-manipulation">
+                    Day 4: Full Body & Core Integration
+                </button>
+                <button onclick="showDay(5)" id="tab-day5" class="tab-button flex-1 min-w-0 px-2 md:px-4 py-3 text-xs md:text-sm font-medium text-center hover:bg-gray-50 transition-colors touch-manipulation">
+                    Day 5: Active Recovery
+                </button>
+            </div>
+
+            <div id="workout-content" class="p-4 md:p-6">
+            </div>
+        </div>
+
+        <div class="mt-6 bg-white rounded-lg shadow-lg p-4 md:p-6">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">Essential Safety Guidelines for Diastasis Recti</h2>
+            <div class="grid md:grid-cols-2 gap-4 md:gap-6">
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold text-red-600 mb-3">⚠️ Warning Signs to Watch For</h3>
+                    <ul class="space-y-2 text-gray-700 text-sm md:text-base">
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">•</span>
+                            <span>Abdominal doming or coning along the midline</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">•</span>
+                            <span>Pain or discomfort in the core area</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">•</span>
+                            <span>Inability to maintain proper form</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">•</span>
+                            <span>Excessive lower back arching</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold text-green-600 mb-3">✅ Key Safety Practices</h3>
+                    <ul class="space-y-2 text-gray-700 text-sm md:text-base">
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">•</span>
+                            <span>Engage TVA (transverse abdominis) before each exercise</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">•</span>
+                            <span>Practice diaphragmatic breathing throughout</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">•</span>
+                            <span>Progress gradually with proper form over heavy weight</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">•</span>
+                            <span>Listen to your body and modify as needed</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-4 md:mt-6 p-3 md:p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                <p class="text-yellow-800 text-sm md:text-base">
+                    <strong>Important:</strong> This workout plan is for informational purposes only. Always consult with a qualified healthcare professional, 
+                    especially one specializing in postpartum recovery, before starting any new exercise program if you have diastasis recti.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const workoutData = {
+            day1: {
+                title: "Day 1: Full Body Strength & Posterior Chain Focus",
+                description: "This workout targets your entire body with emphasis on the posterior chain (back side of your body). Focus on controlled movements and proper core engagement throughout each exercise.",
+                supersets: [
+                    {
+                        name: "Superset A",
+                        subtitle: "Strength & Core Stability",
+                        exercises: [
+                            {
+                                name: "Goblet Squat",
+                                focus: "Quads, Glutes, Core, Lower Back",
+                                instructions: "Hold a dumbbell vertically against your chest. Keep your chest up, core engaged, and squat down as if sitting in a chair. Ensure knees track over toes.",
+                                safety: "Maintain TVA engagement throughout the movement. Avoid leaning too far forward, which can put pressure on the core.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            },
+                            {
+                                name: "Incline Push-up",
+                                focus: "Chest, Shoulders, Triceps, Core",
+                                instructions: "Place hands on an elevated surface (bench, sturdy chair, or wall). Keep body in a straight line from head to heels, core engaged. Lower chest towards the surface and push back up.",
+                                safety: "This variation reduces core strain compared to floor push-ups. Focus on keeping the belly flat and engaged.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Superset B",
+                        subtitle: "Lower Back & Glute Activation",
+                        exercises: [
+                            {
+                                name: "Romanian Deadlift (RDL) with Dumbbells",
+                                focus: "Hamstrings, Glutes, Lower Back",
+                                instructions: "Hold dumbbells in front of your thighs. Hinge at your hips, keeping a slight bend in your knees and a straight back. Lower the dumbbells towards the floor, feeling a stretch in your hamstrings. Engage glutes to return to standing.",
+                                safety: "Crucial to maintain a neutral spine and engage the TVA. Avoid rounding the lower back. If you feel any strain on your core, reduce the range of motion or weight.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            },
+                            {
+                                name: "Bent-Over Dumbbell Row",
+                                focus: "Lats, Rhomboids, Biceps, Lower Back Stability",
+                                instructions: "Hinge at your hips, keeping your back straight and core engaged. Let dumbbells hang towards the floor. Pull dumbbells towards your hips, squeezing your shoulder blades together.",
+                                safety: "Maintain a strong, stable core throughout. Avoid excessive arching or rounding of the back.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Superset C",
+                        subtitle: "Core & Shoulder Stability",
+                        exercises: [
+                            {
+                                name: "Pallof Press (Standing or Kneeling)",
+                                focus: "Obliques, Transverse Abdominis, Anti-Rotation",
+                                instructions: "Anchor a resistance band or cable at chest height. Hold the handle with both hands at your chest. Press the handle straight out in front of you, resisting the rotational pull of the band. Slowly return.",
+                                safety: "Excellent for deep core engagement and anti-rotational strength without direct crunching. Focus on keeping the torso still.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            },
+                            {
+                                name: "Dumbbell Overhead Press (Seated or Standing)",
+                                focus: "Shoulders, Triceps, Upper Back",
+                                instructions: "Hold dumbbells at shoulder height, palms facing forward. Press dumbbells overhead, fully extending arms. Control the descent.",
+                                safety: "Ensure core is braced and lower back does not arch excessively. If standing, maintain a slight bend in knees.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            }
+                        ]
+                    }
+                ]
+            },
+            day2: {
+                title: "Day 2: Leg & Core Focus (No Leg Press/Lying Leg Curl)",
+                description: "Today's focus is on building lower body strength and core stability using exercises that don't require leg press or lying leg curl machines. Emphasize balance and unilateral movements.",
+                supersets: [
+                    {
+                        name: "Superset A",
+                        subtitle: "Lower Body Strength & Stability",
+                        exercises: [
+                            {
+                                name: "Dumbbell Reverse Lunges",
+                                focus: "Quads, Glutes, Hamstrings, Balance",
+                                instructions: "Hold a dumbbell in each hand. Step one leg back into a lunge, lowering until both knees are bent at 90 degrees. Push off the back foot to return to standing.",
+                                safety: "Maintain an upright torso and engaged core. Avoid leaning forward.",
+                                sets: "3-4",
+                                reps: "8-12 each leg"
+                            },
+                            {
+                                name: "Single-Leg Romanian Deadlift (SLRDL) with Dumbbell",
+                                focus: "Hamstrings, Glutes, Lower Back, Balance",
+                                instructions: "Hold one dumbbell in the hand opposite your standing leg. Hinge at your hips, extending the non-standing leg straight back for balance. Lower the dumbbell towards the floor, keeping your back straight. Return to standing.",
+                                safety: "This exercise demands significant core stability. Focus on controlled movement and keeping hips level. If balance is an issue, use lighter weight or hold onto a support.",
+                                sets: "3-4",
+                                reps: "8-12 each leg"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Superset B",
+                        subtitle: "Glute & Posterior Chain Power",
+                        exercises: [
+                            {
+                                name: "Dumbbell Sumo Squat",
+                                focus: "Inner Thighs, Glutes, Quads",
+                                instructions: "Hold one heavy dumbbell with both hands, arms extended down. Stand with feet wider than shoulder-width apart, toes pointed out. Squat down, keeping chest up and core engaged.",
+                                safety: "Similar to goblet squat, focus on maintaining TVA engagement and avoiding forward lean.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            },
+                            {
+                                name: "Good Mornings (with light dumbbell or bodyweight)",
+                                focus: "Hamstrings, Glutes, Lower Back",
+                                instructions: "Place a light dumbbell across your upper back (or hands behind head for bodyweight). Hinge at your hips, keeping a slight bend in your knees and a straight back. Lower your torso until it's almost parallel to the floor, feeling a stretch in your hamstrings. Return to standing.",
+                                safety: "This exercise directly targets the lower back and hamstrings. Maintain a very strong core brace and avoid any rounding of the back. Start with bodyweight to master form.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Superset C",
+                        subtitle: "Core Endurance & Hip Mobility",
+                        exercises: [
+                            {
+                                name: "Side Plank (Modified or Full)",
+                                focus: "Obliques, Transverse Abdominis, Shoulder Stability",
+                                instructions: "Support your body on your forearm and the side of your foot (or knees for modified). Keep your body in a straight line, hips lifted. Hold for 30-45 seconds per side.",
+                                safety: "Excellent for oblique and TVA strength without direct abdominal crunching. Ensure hips don't sag.",
+                                sets: "3-4",
+                                reps: "30-45 sec each side"
+                            },
+                            {
+                                name: "Clamshells (with or without band)",
+                                focus: "Glute Medius, Hip Abductors",
+                                instructions: "Lie on your side, knees bent, feet stacked. Keep feet together and lift your top knee towards the ceiling, rotating at the hip. Slowly lower.",
+                                safety: "No direct core strain, focuses on hip stability which supports overall core function.",
+                                sets: "3-4",
+                                reps: "15-20 each side"
+                            }
+                        ]
+                    }
+                ]
+            },
+            day3: {
+                title: "Day 3: Upper Body Push & Pull Strength",
+                description: "Focus on building upper body strength through balanced pushing and pulling movements. Maintain core stability throughout all exercises to support your spine and protect your core.",
+                supersets: [
+                    {
+                        name: "Superset A",
+                        subtitle: "Horizontal Push & Pull",
+                        exercises: [
+                            {
+                                name: "Dumbbell Bench Press (on floor or bench)",
+                                focus: "Chest, Shoulders, Triceps",
+                                instructions: "Lie on your back, holding dumbbells above your chest, palms facing each other or forward. Lower dumbbells towards your chest, then press back up.",
+                                safety: "On the floor, this limits range of motion and can reduce lower back arching. Focus on keeping lower back pressed into the floor and core engaged.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            },
+                            {
+                                name: "Dumbbell Pullover",
+                                focus: "Lats, Chest, Triceps, Serratus Anterior",
+                                instructions: "Lie on your back on a bench or floor, holding one dumbbell with both hands above your chest. Slowly lower the dumbbell behind your head, feeling a stretch in your lats and chest. Pull it back to the starting position.",
+                                safety: "Focus on maintaining a flat back and engaged core. Avoid excessive arching of the lower back.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Superset B",
+                        subtitle: "Vertical Pull & Push",
+                        exercises: [
+                            {
+                                name: "Assisted Pull-up (Band or Machine) or Lat Pulldown",
+                                focus: "Lats, Biceps, Upper Back",
+                                instructions: "If no machine, use a resistance band looped over a sturdy bar. Pull yourself up (or pull the bar down) until your chin clears the bar (or bar reaches chest). Control the descent.",
+                                safety: "Focus on engaging the lats and keeping the core stable. Avoid swinging or using momentum.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            },
+                            {
+                                name: "Dumbbell Incline Press (on incline bench or floor)",
+                                focus: "Upper Chest, Shoulders, Triceps",
+                                instructions: "Perform similar to flat bench press but on an incline.",
+                                safety: "Similar to flat bench press, maintain core engagement and avoid excessive arching.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Superset C",
+                        subtitle: "Biceps, Triceps & Core Support",
+                        exercises: [
+                            {
+                                name: "Dumbbell Bicep Curl",
+                                focus: "Biceps",
+                                instructions: "Stand or sit, hold dumbbells with palms facing forward. Curl dumbbells towards your shoulders, squeezing biceps. Control the descent.",
+                                safety: "Keep core engaged to prevent swinging or arching the back.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            },
+                            {
+                                name: "Dumbbell Overhead Triceps Extension (Standing or Seated)",
+                                focus: "Triceps",
+                                instructions: "Hold one dumbbell with both hands above your head. Lower the dumbbell behind your head by bending elbows. Extend arms to return.",
+                                safety: "Maintain core engagement and avoid excessive arching of the lower back.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            }
+                        ]
+                    }
+                ]
+            },
+            day4: {
+                title: "Day 4: Full Body Strength & Core Integration",
+                description: "Today combines full-body compound movements with core integration exercises. Focus on maintaining stability and control while challenging multiple muscle groups simultaneously.",
+                supersets: [
+                    {
+                        name: "Superset A",
+                        subtitle: "Compound Lower Body & Core",
+                        exercises: [
+                            {
+                                name: "Dumbbell Front Squat",
+                                focus: "Quads, Glutes, Core, Upper Back",
+                                instructions: "Hold two dumbbells at shoulder height, elbows pointing forward. Keep chest up and core tight, squat down.",
+                                safety: "This variation demands strong core engagement to maintain an upright torso. Focus on keeping the belly flat and engaged.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            },
+                            {
+                                name: "Renegade Row (from knees or plank)",
+                                focus: "Back, Shoulders, Core Stability",
+                                instructions: "Start in a plank position with hands on dumbbells. Row one dumbbell towards your hip, keeping your body stable and avoiding rotation. Alternate sides.",
+                                safety: "Excellent for anti-rotational core strength. If too challenging from plank, perform from knees. Focus on keeping hips still.",
+                                sets: "3-4",
+                                reps: "8-12 each side"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Superset B",
+                        subtitle: "Glute & Hamstring Isolation",
+                        exercises: [
+                            {
+                                name: "Dumbbell Glute Bridges (on floor or elevated feet)",
+                                focus: "Glutes, Hamstrings, Lower Back",
+                                instructions: "Lie on your back, knees bent, feet flat. Place a dumbbell across your hips. Lift your hips off the floor, squeezing glutes.",
+                                safety: "Very safe for diastasis recti as it strengthens the glutes and posterior chain without direct abdominal strain.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            },
+                            {
+                                name: "Dumbbell Hamstring Curls (Stability Ball or Floor Slide)",
+                                focus: "Hamstrings",
+                                instructions: "If using a stability ball: Lie on your back, heels on ball. Lift hips, then curl heels towards glutes. If floor slide: Lie on back, heels on small towels/sliders. Lift hips, then slide heels away and back.",
+                                safety: "These variations avoid leg curl machines and are safe for the core.",
+                                sets: "3-4",
+                                reps: "8-12"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Superset C",
+                        subtitle: "Anti-Extension & Rotational Core",
+                        exercises: [
+                            {
+                                name: "Dead Bug",
+                                focus: "Deep Core, Anti-Extension",
+                                instructions: "Lie on your back, knees bent at 90 degrees, arms extended towards ceiling. Slowly lower opposite arm and leg towards the floor, keeping lower back pressed into the mat. Return and alternate.",
+                                safety: "A foundational exercise for TVA activation and anti-extension. Focus on keeping the lower back flat.",
+                                sets: "3-4",
+                                reps: "8-12 each side"
+                            },
+                            {
+                                name: "Side Bend with Dumbbell",
+                                focus: "Obliques",
+                                instructions: "Stand tall, holding one dumbbell in one hand. Slowly bend to the side with the dumbbell, feeling a stretch on the opposite side. Return to upright.",
+                                safety: "Gentle oblique work without crunching. Keep core engaged and movement controlled.",
+                                sets: "3-4",
+                                reps: "8-12 each side"
+                            }
+                        ]
+                    }
+                ]
+            },
+            day5: {
+                title: "Day 5: Active Recovery & Core Restoration",
+                description: "Today focuses on gentle movement, core restoration, and mobility. This active recovery day is crucial for muscle repair, reducing soreness, and reinforcing proper core engagement patterns.",
+                supersets: [
+                    {
+                        name: "Superset A",
+                        subtitle: "Gentle Core & Mobility",
+                        exercises: [
+                            {
+                                name: "Bird-Dog (Slow & Controlled)",
+                                focus: "Core Stability, Balance, Lower Back",
+                                instructions: "On all fours, extend one arm forward and the opposite leg backward, focusing on slow, deliberate movement and maintaining a perfectly stable core.",
+                                safety: "Focus on quality over quantity. Move slowly and maintain perfect stability.",
+                                sets: "3-4",
+                                reps: "10-12 each side"
+                            },
+                            {
+                                name: "Thread the Needle",
+                                focus: "Thoracic Mobility, Shoulder Stretch",
+                                instructions: "From all fours, thread one arm under your body, resting on your shoulder and temple. Feel a gentle twist in your upper back.",
+                                safety: "Move gently and don't force the stretch. Focus on breathing deeply.",
+                                sets: "3-4",
+                                reps: "30-60 sec each side"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Superset B",
+                        subtitle: "Glute Activation & Hip Opening",
+                        exercises: [
+                            {
+                                name: "Glute Bridge (Bodyweight, Hold at Top)",
+                                focus: "Glutes, Hamstrings, Core",
+                                instructions: "Perform a bodyweight glute bridge, but hold the top position for 3-5 seconds, focusing on glute contraction and TVA engagement.",
+                                safety: "Focus on quality contractions and proper breathing.",
+                                sets: "3-4",
+                                reps: "12-15"
+                            },
+                            {
+                                name: "Figure-Four Stretch",
+                                focus: "Glutes, Hips",
+                                instructions: "Lie on your back, cross one ankle over the opposite knee. Gently pull the bottom knee towards your chest.",
+                                safety: "Gentle stretch, don't force it. Breathe deeply and relax into the stretch.",
+                                sets: "3-4",
+                                reps: "30-60 sec each side"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Superset C",
+                        subtitle: "Pelvic Floor & Breathing Integration",
+                        exercises: [
+                            {
+                                name: "Pelvic Floor Breaths",
+                                focus: "Pelvic Floor, Diaphragmatic Breathing",
+                                instructions: "Lie on your back, knees bent. Inhale, feeling your pelvic floor relax and expand. Exhale, gently lifting and engaging your pelvic floor as if stopping the flow of urine.",
+                                safety: "Very gentle engagement. Focus on coordination with breathing.",
+                                sets: "3-4",
+                                reps: "10-15"
+                            },
+                            {
+                                name: "Wall Angel",
+                                focus: "Posture, Shoulder Mobility, Upper Back",
+                                instructions: "Stand with your back against a wall, feet slightly away. Press your lower back into the wall. Bring arms up, elbows bent at 90 degrees, trying to keep forearms and hands against the wall as you slide them up and down.",
+                                safety: "Promotes good posture and upper back strength, which supports core function.",
+                                sets: "3-4",
+                                reps: "10-15"
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        let currentDay = 1;
+        let savedWeights = JSON.parse(localStorage.getItem('workoutWeights') || '{}');
+
+        function showDay(day) {
+            currentDay = day;
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('tab-active'));
+            document.getElementById(`tab-day${day}`).classList.add('tab-active');
+            
+            const dayData = workoutData[`day${day}`];
+            const content = document.getElementById('workout-content');
+            
+            content.innerHTML = `
+                <div class="fade-in">
+                    <div class="mb-6">
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">${dayData.title}</h2>
+                        <p class="text-gray-600 text-sm md:text-lg">${dayData.description}</p>
+                    </div>
+                    
+                    <div class="space-y-6 md:space-y-8">
+                        ${dayData.supersets.map((superset, supersetIndex) => `
+                            <div class="bg-gray-50 rounded-lg p-4 md:p-6">
+                                <div class="flex items-center mb-4">
+                                    <span class="superset-badge text-white px-3 py-1 rounded-full text-sm font-bold mr-3">
+                                        ${superset.name}
+                                    </span>
+                                    <h3 class="text-lg md:text-xl font-bold text-gray-800">${superset.subtitle}</h3>
+                                </div>
+                                
+                                <div class="grid gap-4 md:gap-6 ${window.innerWidth <= 768 ? '' : 'md:grid-cols-2'}">
+                                    ${superset.exercises.map((exercise, exerciseIndex) => `
+                                        <div class="exercise-card bg-white rounded-lg p-4 md:p-5 shadow-sm border">
+                                            <div class="mb-4">
+                                                <h4 class="text-base md:text-lg font-bold text-gray-800 mb-2">${exercise.name}</h4>
+                                                <p class="text-sm text-blue-600 font-medium mb-2">Focus: ${exercise.focus}</p>
+                                                <div class="flex flex-wrap gap-2 text-sm text-gray-600 mb-3">
+                                                    <span class="bg-blue-100 px-2 py-1 rounded text-xs">Sets: ${exercise.sets}</span>
+                                                    <span class="bg-green-100 px-2 py-1 rounded text-xs">Reps: ${exercise.reps}</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-4">
+                                                <h5 class="font-semibold text-gray-700 mb-2 text-sm">Instructions:</h5>
+                                                <p class="text-xs md:text-sm text-gray-600 mb-3">${exercise.instructions}</p>
+                                                
+                                                <h5 class="font-semibold text-red-600 mb-2 text-sm">Safety Notes:</h5>
+                                                <p class="text-xs md:text-sm text-red-700 bg-red-50 p-2 rounded">${exercise.safety}</p>
+                                            </div>
+                                            
+                                            <div class="border-t pt-4">
+                                                <h5 class="font-semibold text-gray-700 mb-3 text-sm">Weight Used (lbs/kg):</h5>
+                                                <div class="space-y-2">
+                                                    <input type="number" 
+                                                           class="weight-input w-full" 
+                                                           placeholder="Enter weight used"
+                                                           value="${getWeight(day, supersetIndex, exerciseIndex)}"
+                                                           onchange="saveWeight(${day}, ${supersetIndex}, ${exerciseIndex}, this.value)"
+                                                           step="0.5"
+                                                           min="0">
+                                                    <p class="text-xs text-gray-500">Weight is automatically saved</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function getWeight(day, supersetIndex, exerciseIndex) {
+            const key = `day${day}-s${supersetIndex}-e${exerciseIndex}`;
+            return savedWeights[key] || '';
+        }
+
+        function saveWeight(day, supersetIndex, exerciseIndex, weight) {
+            const key = `day${day}-s${supersetIndex}-e${exerciseIndex}`;
+            if (weight && weight.trim() !== '') {
+                savedWeights[key] = parseFloat(weight);
+            } else {
+                delete savedWeights[key];
+            }
+            localStorage.setItem('workoutWeights', JSON.stringify(savedWeights));
+        }
+
+        function clearAllWeights() {
+            if (confirm('Are you sure you want to clear all saved weights? This cannot be undone.')) {
+                savedWeights = {};
+                localStorage.removeItem('workoutWeights');
+                showDay(currentDay);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showDay(1);
+        });
+
+        // Prevent zoom on input focus for iOS
+        document.addEventListener('touchstart', function() {}, true);
+    </script>
+</body>
+</html>
+
